@@ -1,0 +1,14 @@
+{
+  "name": "acbs-tree-lint",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "acbs-tree-lint": "index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Neruthes",
+  "license": "AGPL-3.0"
+}

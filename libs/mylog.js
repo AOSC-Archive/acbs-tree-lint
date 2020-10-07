@@ -2,17 +2,17 @@ const mylog = {};
 
 mylog.info = function (arg0) {
     const chalk = require('chalk');
-    console.log(chalk.green('[INFO] ') + arg0);
+    console.log(chalk.bold.green('[INFO] ') + arg0);
     mylog.count('info');
 };
 mylog.warn = function (arg0) {
     const chalk = require('chalk');
-    console.log(chalk.yellow('[WARN] ') + arg0);
+    console.log(chalk.bold.yellow('[WARN] ') + arg0);
     mylog.count('warn');
 };
 mylog.fail = function (arg0) {
     const chalk = require('chalk');
-    console.error(chalk.red('[FAIL] ') + arg0);
+    console.error(chalk.bold.red('[FAIL] ') + arg0);
     mylog.count('fail');
 };
 

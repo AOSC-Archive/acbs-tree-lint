@@ -1,7 +1,7 @@
 {
   "name": "acbs-tree-lint",
-  "version": "1.0.3",
-  "description": "",
+  "version": "1.0.4",
+  "description": "This is a lint system for AOSC-Dev/aosc-os-abbs",
   "main": "index.js",
   "bin": {
     "acbs-tree-lint": "index.js"
@@ -10,5 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Neruthes",
-  "license": "AGPL-3.0"
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "chalk": "^4.1.0"
+  }
 }

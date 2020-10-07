@@ -1,9 +1,19 @@
 #!/bin/node
 
-console.log(`============ Welcome to ACBS-TREE-LINT ============`);
+const package = require('./package.json')
 const fs = require('fs');
 const mylog = require('./libs/mylog.js');
 const exec = require('child_process').execSync;
+console.log(`
+================================================================================
+
+    Welcome to ACBS-TREE-LINT (v${package.version})
+    Copyright (c) 2020 Neruthes & various contributors
+    Licensed undere GNU AGPL v3
+    Source code is public at https://github.com/AOSC-Dev/acbs-tree-lint
+
+================================================================================
+`.trim());
 
 // ----------------------------------------
 // Parameters

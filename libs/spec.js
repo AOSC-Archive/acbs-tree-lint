@@ -65,8 +65,12 @@ const lint_spec = function (args) {
     let totalFiles = args.dirsl2.length;
     let processedFiles = 0;
     args.dirsl2.forEach(function (dirl2, i) {
+        const padright = function (str, len, pad) {
+            return (str.length === len) ? str : (str + (new Array(Math.max(4, len-str.length))).fill(pad).join(''));
+        };
         let path = `${dirl2}/spec`;
-        let pkgid = dirl2.slice(2);
+        let pkgid1 = dirl2.slice(2);
+        let pkgid = padright(pkgid1, 40, ' ');
         fs.readFile(path, function (err, stdin, stderr) {
             if (err) {
                 throw err;
@@ -105,15 +109,15 @@ const lint_spec = function (args) {
             parsedContent.forEach(function (line) {
                 // Deprecated attr
                 if (config.AttrDeprecated.includes(line.attr)) {
-                    mylog.warn(`${pkgid}:  Prop ${line.attr} is deprecated.`);
+                    mylog.warn(`${pkgid}: Prop ${line.attr} is deprecated.`);
                 };
                 // Rare attr
                 if (config.AttrOrder.indexOf(line.attr) === -1) {
-                    // mylog.warn(`${pkgid}:  Prop ${line.attr} is rare.`);
+                    // mylog.warn(`${pkgid}: Prop ${line.attr} is rare.`);
                 };
                 // Conflict
                 if (config.AttrConflictGroups.map(x => x.join(',')).join(',').split(',').includes(line.attr)) {
-                    // console.log(`${pkgid}:  ${line.attr} is seen.`);
+                    // console.log(`${pkgid}: ${line.attr} is seen.`);
                     let whichConflictGroup = null;
                     config.AttrConflictGroups.forEach(function (group, groupId) {
                         if (group.includes(line.attr)) {
@@ -122,7 +126,7 @@ const lint_spec = function (args) {
                     });
                     config.AttrConflictGroups[whichConflictGroup].filter(x => x !== line.attr).forEach(function (conflictCandidate) {
                         if (foundAttrs.includes(conflictCandidate)) {
-                            mylog.fail(`${pkgid}:  ${line.attr} conflicts with ${conflictCandidate}.`);
+                            mylog.fail(`${pkgid}: ${line.attr} conflicts with ${conflictCandidate}.`);
                         };
                     })
                 };
@@ -134,7 +138,7 @@ const lint_spec = function (args) {
                         attrMustBeBefore.forEach(function (attrEntry) {
                         if (seenAttrs.indexOf(attrEntry) !== -1) {
                             // Any of the seen attrs appears in `attrMustBeBefore`
-                            // mylog.info(`${pkgid}:  Better place ${line.attr} before ${attrEntry}.`);
+                            // mylog.info(`${pkgid}: Better place ${line.attr} before ${attrEntry}.`);
                         };
                     });
                 };
@@ -158,7 +162,7 @@ const lint_spec = function (args) {
                     let citedVars = citedVarsRaw.map(x => x.replace(/[^\w]/gi, ''));
                     citedVars.forEach(function (citedVar) {
                         if (seenAttrs.indexOf(citedVar) === -1) {
-                            mylog.fail(`${pkgid}:  ${line.attr} citing undefined ${citedVar}.`);
+                            mylog.fail(`${pkgid}: ${line.attr} citing undefined ${citedVar}.`);
                         };
                         knownDependencyProblems.forEach(function (item) {
                             if (item.from === citedVar) {
@@ -173,9 +177,9 @@ const lint_spec = function (args) {
             // Report literal denpendency problems
             knownDependencyProblems.map(function (item) {
                 if (item.solved) {
-                    mylog.info(`${pkgid}:  ${item.from} has unmet dependency but is used later by ${item.citedVar}.`)
+                    mylog.info(`${pkgid}: ${item.from} has unmet dependency but is used later by ${item.citedVar}.`)
                 } else {
-                    mylog.fail(`${pkgid}:  ${item.from} depends on ${item.to}.`)
+                    mylog.fail(`${pkgid}: ${item.from} depends on ${item.to}.`)
                 };
             });
 

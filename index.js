@@ -8,6 +8,7 @@ const exec = require('child_process').execSync;
 // ----------------------------------------
 // Parameters
 const LINTER = process.argv[2];
+const TARGET = process.argv[3];
 
 // ----------------------------------------
 // Linters

@@ -70,7 +70,7 @@ const lint_spec = function (args) {
         };
         let path = `${dirl2}/spec`;
         let pkgid1 = dirl2.slice(2);
-        let pkgid = padright(pkgid1, 40, ' ');
+        let pkgid = padright(chalk.bgCyan(pkgid1), 40, ' ');
         fs.readFile(path, function (err, stdin, stderr) {
             if (err) {
                 throw err;

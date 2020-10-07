@@ -18,7 +18,7 @@ Run `acbs-tree-lint {LINTER_NAME}` inside a directory of the [https://github.com
 
 | Name              | Status        | Description |
 | ----------------- | ------------- | ----------- |
-| spec              | WIP           | Check the "spec" files of all packages. Criteria: variable order, variable dependency, variable conflict, variable rarity.
+| spec              | WIP           | Check the "spec" files of all packages. Criteria: variable order, variable dependency, variable conflict, variable deprecation.
 
 ## Copyright
 

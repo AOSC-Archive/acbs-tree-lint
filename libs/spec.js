@@ -21,20 +21,16 @@ const lint_spec = function (args) {
     };
     config.AttrSpec = {
         'VER': {
-            mandatory: true,
-            match: /^\".+\"$/
+            mandatory: true
         },
         'LOCAL_VER': {
-            mandatory: false,
-            match: /^\".+\"$/
+            mandatory: false
         },
         'REV': {
-            mandatory: false,
-            match: /^\d+$/
+            mandatory: false
         },
         'SUB': {
-            mandatory: false,
-            match: /^\w+$/
+            mandatory: false
         },
         'DUMMYSRC': {
             mandatory: false,
@@ -48,19 +44,15 @@ const lint_spec = function (args) {
         },
         'SRCTBL': {
             mandatory: false,
-            match: /^\".+\"$/,
             conflictGroup: 0
         },
         'GITSRC': {
             mandatory: false,
-            match: /^\".+\"$/,
             conflictGroup: 0
         },
         'GITCO': {
             mandatory: false,
-            match: /^\".+\"$/,
-            conflictGroup: 0,
-            depend: [ 'GITSRC' ]
+            conflictGroup: 0
         },
         'CHKSUM': {
             mandatory: false,
@@ -117,6 +109,21 @@ const lint_spec = function (args) {
                 // Rare attr
                 if (config.AttrOrder.indexOf(line.attr) === -1) {
                     // mylog.warn(`${path}:  Prop ${line.attr} is rare.`);
+                };
+                // Conflict
+                if (config.AttrConflictGroups.map(x => x.join(',')).join(',').split(',').includes(line.attr)) {
+                    // console.log(`${path}:  ${line.attr} is seen.`);
+                    let whichConflictGroup = null;
+                    config.AttrConflictGroups.forEach(function (group, groupId) {
+                        if (group.includes(line.attr)) {
+                            whichConflictGroup = groupId;
+                        };
+                    });
+                    config.AttrConflictGroups[whichConflictGroup].filter(x => x !== line.attr).forEach(function (conflictCandidate) {
+                        if (foundAttrs.includes(conflictCandidate)) {
+                            mylog.fail(`${path}:  ${line.attr} conflicts with ${conflictCandidate}.`);
+                        };
+                    })
                 };
                 // Attr order
                 if (config.AttrOrder.indexOf(line.attr) !== -1) {

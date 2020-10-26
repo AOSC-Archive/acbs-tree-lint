@@ -12,7 +12,7 @@ mylog.warn = function (arg0) {
 };
 mylog.fail = function (arg0) {
     const chalk = require('chalk');
-    console.error(chalk.bold.red('[FAIL] ') + arg0);
+    console.log(chalk.bold.red('[FAIL] ') + arg0);
     mylog.count('fail');
 };
 

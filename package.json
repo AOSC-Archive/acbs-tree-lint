@@ -1,6 +1,6 @@
 {
   "name": "acbs-tree-lint",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "This is a lint system for AOSC-Dev/aosc-os-abbs",
   "main": "index.js",
   "bin": {
